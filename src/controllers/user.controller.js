@@ -20,4 +20,25 @@ export const createUser = async (req, res) => {
       res.status(400).json({ error: error });
     }
   };
+
+  //Login
+  export const login = async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+      const user = await User.findOne({ email });
+      if(user && bcrypt.compareSync(password, user.password)){
+        req.body.user = user;
+        console.log(req.body.user)
+        next();
+      }
+      else{
+        return res.status(HTTP_NOT_FOUND).json({ error: true, message: "Credenciales incorrectas" });
+      }  
+    } catch (error) {
+      console.log(error);
+      res.status(HTTP_INTERNAL_SERVER_ERROR).json({ error: true });
+    }
+  };
+
+
   
