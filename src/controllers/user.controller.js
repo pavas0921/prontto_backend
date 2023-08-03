@@ -40,5 +40,17 @@ export const createUser = async (req, res) => {
     }
   };
 
+  // Obtener todos los user
+export const getUsers = async (req, res) => {
+  try {
+    const item = await User.find().populate("idStore").populate("idRol").exec();
+    if (item.length) return res.json({ status: 201, item });
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Error al obtener los user" });
+  }
+};
+
 
   

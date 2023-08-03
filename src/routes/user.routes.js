@@ -1,6 +1,7 @@
 import express from "express";
-import { createUser, login } from "../controllers/user.controller.js";
+import { createUser, getUsers, login } from "../controllers/user.controller.js";
 import { generateToken } from "../helpers/generateToken.js";
+import { verifyToken } from "../helpers/verifyToken.js";
 
 const router = express.Router();
 
@@ -8,5 +9,9 @@ const router = express.Router();
 router.post("/", createUser);
 //Login
 router.post("/login", login, generateToken);
+//Obtener todos los usuarios
+router.get("/", verifyToken, getUsers);
+
+
 
 export default router;
