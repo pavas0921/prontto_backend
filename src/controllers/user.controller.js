@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
         next();
       }
       else{
-        return res.status(HTTP_NOT_FOUND).json({ error: true, message: "Credenciales incorrectas" });
+        return res.status(HTTP_NOT_FOUND).json({ status: HTTP_NOT_FOUND, error: true, message: "Credenciales incorrectas" });
       }  
     } catch (error) {
       console.log(error);
