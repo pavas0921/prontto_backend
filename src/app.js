@@ -1,4 +1,3 @@
-import cors from "cors";
 import express from "express";
 import { connect } from "./config/database.js";
 import rolRoutes from "./routes/rol.routes.js";
@@ -6,7 +5,7 @@ import storeRoutes from "./routes/store.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 const app = express();
-app.use(cors());
+//app.use(cors());
 
 //Middleware
 app.use(express.json());
