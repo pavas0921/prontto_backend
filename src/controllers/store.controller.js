@@ -12,4 +12,15 @@ export const createStore = async (req, res) => {
       res.status(400).json({ error: error });
     }
   };
+
+  export const getStore = async (req, res) => {
+    try {
+      const item = await Store.find().exec();
+      if (item.length) return res.json({ status: 201, item });
+  
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ error: "Error al obtener los user" });
+    }
+  };
   

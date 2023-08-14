@@ -53,5 +53,27 @@ export const getUsers = async (req, res) => {
   }
 };
 
+// Actualizar un usuario
+export const updateUser = async (req, res) => {
+  const _id = req.params
+  const { id, name, lastname, email, idRol, idStore } = req.body;
+  const newUser = req.body
+
+  
+  
+  try {
+  const user = await User.findOneAndUpdate({ _id }, { name, lastname, id, email, idRol, idStore });
+  console.log("******", user)
+  if (user) {
+  res.status(200).json({ status: 200, user });
+  } else {
+  res.status(404).json({ status: 404, message: "No se encontró el usuario" });
+  }
+  } catch (error) {
+  console.log(error);
+  res.status(500).json({ error: "Error al actualizar el usuario" });
+  }
+  };
+
 
   
