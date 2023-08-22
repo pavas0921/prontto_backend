@@ -53,13 +53,23 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getUserById = async (req, res) => {
+  const {_id} = req.params
+  try {
+    const item = await User.find({_id}).populate("idStore").populate("idRol").exec();
+    if (item.length) return res.json({ status: 201, item });
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Error al obtener los user" });
+  }
+};
+
 // Actualizar un usuario
 export const updateUser = async (req, res) => {
   const _id = req.params
   const { id, name, lastname, email, idRol, idStore } = req.body;
-  const newUser = req.body
-
-  
+  const newUser = req.body 
   
   try {
   const user = await User.findOneAndUpdate({ _id }, { name, lastname, id, email, idRol, idStore });
