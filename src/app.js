@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { connect } from "./config/database.js";
+import clientRoutes from "./routes/client.routes.js";
 import rolRoutes from "./routes/rol.routes.js";
 import storeRoutes from "./routes/store.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -19,5 +20,6 @@ app.get("/", (req, res) => {
 app.use("/rol", rolRoutes);
 app.use("/user", userRoutes);
 app.use("/store", storeRoutes);
+app.use("/client", clientRoutes)
 
 export default app;
