@@ -2,6 +2,7 @@ import Store from "../models/store.js";
 
 // Crear un nuevo store
 export const createStore = async (req, res) => {
+
     console.log("create store");
     const { name, address, phone, nit } = req.body;
     try {
@@ -23,4 +24,3 @@ export const createStore = async (req, res) => {
       res.status(500).json({ error: "Error al obtener los user" });
     }
   };
-  
