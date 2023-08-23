@@ -13,4 +13,15 @@ export const createRol = async (req, res) => {
       res.status(400).json({ error: error });
     }
   };
+
+  export const getRol = async (req, res) => {
+    console.log("hola")
+    try {
+      const rolItem = await Rol.find().exec();
+      if (rolItem.length) return res.json({ status: 201, rolItem });
   
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ error: "Error al obtener los user" });
+    }
+  };

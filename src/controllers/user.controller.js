@@ -23,6 +23,7 @@ export const createUser = async (req, res) => {
 
   //Login
   export const login = async (req, res, next) => {
+    console.log("hola")
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
@@ -32,7 +33,7 @@ export const createUser = async (req, res) => {
         next();
       }
       else{
-        return res.status(HTTP_NOT_FOUND).json({ error: true, message: "Credenciales incorrectas" });
+        return res.status(HTTP_NOT_FOUND).json({ status: HTTP_NOT_FOUND, error: true, message: "Credenciales incorrectas" });
       }  
     } catch (error) {
       console.log(error);
@@ -51,6 +52,38 @@ export const getUsers = async (req, res) => {
     res.status(500).json({ error: "Error al obtener los user" });
   }
 };
+
+export const getUserById = async (req, res) => {
+  const {_id} = req.params
+  try {
+    const item = await User.find({_id}).populate("idStore").populate("idRol").exec();
+    if (item.length) return res.json({ status: 201, item });
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Error al obtener los user" });
+  }
+};
+
+// Actualizar un usuario
+export const updateUser = async (req, res) => {
+  const _id = req.params
+  const { id, name, lastname, email, idRol, idStore } = req.body;
+  const newUser = req.body 
+  
+  try {
+  const user = await User.findOneAndUpdate({ _id }, { name, lastname, id, email, idRol, idStore });
+  console.log("******", user)
+  if (user) {
+  res.status(200).json({ status: 200, user });
+  } else {
+  res.status(404).json({ status: 404, message: "No se encontró el usuario" });
+  }
+  } catch (error) {
+  console.log(error);
+  res.status(500).json({ error: "Error al actualizar el usuario" });
+  }
+  };
 
 
   

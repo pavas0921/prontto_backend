@@ -20,5 +20,4 @@ app.use("/rol", rolRoutes);
 app.use("/user", userRoutes);
 app.use("/store", storeRoutes);
 
-
 export default app;
